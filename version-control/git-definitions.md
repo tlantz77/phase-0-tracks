@@ -4,7 +4,7 @@
 
 * What is version control?  Why is it useful?
 
-Version control allows programmers to make checkpoints for changes in code and essentially have a navigable history of backups for code.
+Version control allows programmers to make checkpoints for changes in code and essentially have a navigable history of revisions.  It enables programmers to go back to important points in the code's history to make necessary changes.
 
 * What is a branch and why would you use one?
 
