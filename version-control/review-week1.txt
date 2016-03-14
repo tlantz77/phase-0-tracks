@@ -1,0 +1,46 @@
+1. Command Line:
+
+    * A shell or bash is a terminal through which a programmer manages files and runs code.  It is intended to be a faster, more efficient way to work rather than through a graphical UI.
+
+    pwd:  shows the current directory
+    ls:  lists the files and subdirectories inside the current directory
+    mv:  used to move or rename a file
+    cd:  changes directories
+    touch:  creates a new file
+    mkdir:  creates a new directory
+    rm:  deletes a file or directory
+    help:  displays a list of common commands
+    find:  searches for a file or directory by name
+    grep:  searches for a file or directory by a string
+
+2. Git:
+
+   * Version control allows programmers to track the revisions in code and make a history of savepoints so they can go back to previous versions and make any changes.
+
+   * A commit is basically a confirmation of a change to code that creates a save point that a programmer can come back to in the future.  The best commit messages are clear and concise statements that describes what change to the code was made.
+
+   * A branch creates a copy of a codebase that can be worked on and modified without affecting the "master" code until it is ready to be merged back in.
+
+   * The first stage of a git change is Untracked - a new file that hasn't been changed yet.  The second is Modified - a file that has had changes made to it and has been saved in the editor.  The third is Staged - a file whose changes are flagged as ready to be committed by using the command "git add <FILENAME>".  
+
+3. GitHub:
+
+   * "Git" refers to the local program that is a version-control tool the programmer uses to track and save changes to their codebase.  "GitHub" is the online repository to which to programmer can upload the codebase to that both serves as remote backup and as a means for multiple programmers to share and collaborate on the codebase.
+
+   * One can create and clone a repository by-
+
+     A. Creating a new repository on GitHub using their interface and then using the terminal command "git clone <url of repository>" to copy it to your computer.
+
+     B. Create a repository locally by creating a directory then inside that directory using the command "git init".  Then upload it to GitHub by first creating an empty repo there, then using the command "git remote add origin <URL>" to clone it to GitHub.
+
+     Updating a repository is done using the command "git push origin <name of the branch in which chages were made>".
+
+   * To fork a repository one simply need to navigate to the GitHub url of the repository and click the "fork" button which will create copy of the repository under your own account.  The in your terminal create a directory and within that directory use the "git clone <url>" to copy it to that folder.  
+
+   * A pull request on GitHub is a request to merge a branch that has been worked on back into the master codebase.  It is an opportunity for the code to be reviewed and changed by another before it is merged.  It is done by clicking the "Compare & pull request" button on GitHub, choosing the appropriate branch and master code to be merged from the drop down menus, adding comments, then clicking the "create pull request" button.
+
+   * Pull requests are preferred when working in teams because they are essentially a system of peer-review.  It helps to ensure that there are multiple sets of eyes reviewing the code and keeps everybody on the same page. 
+
+
+
+
