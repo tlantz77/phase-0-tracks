@@ -9,6 +9,14 @@ section#contact-info {
 	margin-top: 20px;
 }
 
+.job:hover {
+	background-color: blue;
+}
+
 .smalltext {
 	font-size: .8em;
+}
+
+li:nth-child(2) {
+	font-size: 1.6em;
 }
