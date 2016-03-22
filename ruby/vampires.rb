@@ -18,6 +18,14 @@ until employees == 0
     puts "Would you like to enroll in our health insurance plan? (y/n)"
       want_insure = gets.chr
     
+    #Ask about allergies
+    puts "Please enter any allergies you have, one at a time. Type 'done' if you do not have any."
+    allergy = gets.chomp
+    while (allergy != "sunshine") && (allergy != "done")
+      puts "Thank you. Please enter another allergy or type 'done'."
+      allergy = gets.chomp
+    end  
+      
     #Vampire evalution program
     currentyear = 2016
     
@@ -27,17 +35,24 @@ until employees == 0
         age_verify = false
     end
     
-    if (name == "Drake Cula") || (name == "Tu Fang")
-        puts "Definitely a vampire."
-      elsif (age_verify == true) && (want_garlic == "y") && (want_insure == "y")
-        puts "Probably not a vampire."
-      elsif (age_verify == false) && (want_garlic != "y") && (want_insure != "y") 
-        puts "Almost certainly a vampire."
-      elsif (age_verify == false) && ((want_garlic != "y")||(want_insure != "y"))
-        puts "Probably a vampire."
+   case
+      when (allergy == "sunshine")
+        results = "Probably a vampire."
+      when (age_verify == true) && (want_garlic == "y") && (want_insure == "y")
+        results = "Probably not a vampire."
+      when (age_verify == false) && (want_garlic == "y") || (want_insure == "y")
+        results = "Probably a vampire."
+      when (age_verify == false) && (want_garlic != "y") && (want_insure != "y")
+        results = "Almost certainly a vampire."
       else
-        puts "Results inconclusive."
+        results = "Results inconclusive."
+    end   
+    
+    if (name == "Drake Cula") || (name == "Tu Fang")
+        results = "Definitely a vampire."
     end    
+    
+    puts results
     
   employees -= 1
 
