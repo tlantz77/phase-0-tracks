@@ -59,3 +59,5 @@ until employees == 0
 end
 
 puts "No more interviews for today."
+
+puts  "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
