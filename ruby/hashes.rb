@@ -36,3 +36,19 @@ puts "What is the client's preferred wood type?"
 #Print client info
 puts "Thank you!  Let's review the client's information..."
 puts client
+ 	
+#Prompt user to make any needed changes to profile
+puts "Are there any changes that need to be made?"
+puts "If so, enter the info key that needs to be changed otherwise type 'none'."
+	change = gets.chomp
+		
+	if (change != "none")
+		puts "Enter the new information for #{change}: "
+			client[change.intern] = gets.chomp
+	  else
+	  	puts "No changes made."
+	end
+
+#Print the updated hash
+puts "Here is the client's updated info:"
+puts client
