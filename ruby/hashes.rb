@@ -12,7 +12,7 @@ def to_bool(x)
 	end  	
 end
 
-#Prompt designer to enter the clients info
+#Prompt user to enter the clients info
 puts "Hello!  Let's start a new client profile..."
 puts "Please enter the client's name:"
 	client[:name] = gets.chomp
@@ -41,13 +41,23 @@ puts client
 puts "Are there any changes that need to be made?"
 puts "If so, enter the info key that needs to be changed otherwise type 'none'."
 	change = gets.chomp
-		
-	if (change != "none")
-		puts "Enter the new information for #{change}: "
-			client[change.intern] = gets.chomp
-	  else
-	  	puts "No changes made."
+	
+#Check the datatype of the key to be changed, so the program takes user input as correct datatype
+if change != "none"
+	puts "Enter the new information for #{change}: "	
+	case 
+		when client[change.intern].class == String
+		 	client[change.intern] = gets.chomp
+		when client[change.intern].class == Fixnum
+			client[change.intern] = gets.to_i
+		when (client[change.intern].class == TrueClass) || (client[change.intern] == FalseClass)
+			client[change.intern] = to_bool(gets.chr)
+		else 
+			puts "Unknown key"
 	end
+else
+	puts "No changes made."
+end	
 
 #Print the updated hash
 puts "Here is the client's updated info:"
