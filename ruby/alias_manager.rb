@@ -38,27 +38,54 @@ def next_letter(letter)
 end
 
 
-#method to create alias
+#method to create alias.
 
 def create_alias(spy_name)
 	
-	#run methods on name to downcase, split into first/lastname, and swap names 
+	#run methods on name to downcase, split into first/lastname, and swap names .
 	flip_name = spy_name.downcase.split(' ').reverse
 	
-	#take each name, split it into character array, and run next_letter method on each character
+	#take each name, split it int.o character array, and run next_letter method on each character.
 	codename = flip_name.map do |name|
 		new_name = name.chars
 		new_name.map! do |letter|
 			next_letter(letter)
 		end
 	    
-	    #reassemble character array into name and recapitalize
+	    #reassemble character array into name and recapitalize.
 	    new_name = new_name.join('').capitalize 
 	end	
 
-	#rejoin names into one string and return as method value
+	#rejoin names into one string and return as method value.
     return codename.join(' ')
     
 end
 
-p create_alias("Doctor Allan Superdude")
+
+
+#User interface
+
+agent_database = Hash.new("No data")
+
+puts "Hello Agent <YOURNAME>!  Welcome to the Agency Codenamification Interface!"
+puts "Please enter an agent's name to encode and enter into the database (type 'exit' to abort):"
+
+user_input = gets.chomp
+
+#Loop to take entered names, run create_alias method on names, and store in agent_database hash.
+
+while user_input != "exit"
+	true_name = user_input
+	code_name = create_alias(user_input)
+	agent_database.store(true_name, code_name)
+	puts "Thank you, please enter another name, or type 'exit' to finish:"
+	user_input = gets.chomp
+end	
+
+
+#Print agent_database info using iterative method
+puts "Thank you. This is a list of your agents and their aliases.  DON'T LET IT FALL INTO THE WRONG HANDS!"
+
+agent_database.each do |truename, codename|
+	puts "#{truename} is also known as '#{codename}'."
+end	
