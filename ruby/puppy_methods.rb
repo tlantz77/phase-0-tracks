@@ -1,4 +1,7 @@
 class Puppy
+  def initialize(name)
+    @name = name 
+  end
 
   def fetch(toy)
     puts "I brought back the #{toy}!"
@@ -24,7 +27,12 @@ class Puppy
   def shake
     put "Shake!!!!"
   end
-
-
+  
 end
+
+
+sadie = Puppy.new("Sadie")
+p sadie.fetch("bone")
+
+
 
