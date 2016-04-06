@@ -1,6 +1,7 @@
 #define Santa class
 class Santa
-  attr_reader :gender, :ethnicity, :age
+  attr_reader :gender, :ethnicity
+  attr_accessor :age
   
   def initialize(gender, ethnicity)
     p "Initializing Santa instance..."
@@ -29,21 +30,27 @@ class Santa
   end
 end
 
-#random Santas generator
-def random_santa(x)
-  santas = []
-  genders = ["male", "female", "genderfluid", "transgender", "agender", "indeterminate"]
-  ethnicities = ["human", "elf", "dwarf", "hobbit", "orc", "troll", "dragon", "goblin"]
-   x.times do 
-    santas << Santa.new(genders[Random.rand(genders.length)], ethnicities[Random.rand(ethnicities.length)])
-  end  
-  santas
-end
-
 #driver code
+# test_santa = Santa.new("female", "Japanese")
+# p test_santa
+# test_santa.celebrate_birthday
+# test_santa.get_mad_at("Dancer")
+# p test_santa.gender
+# p test_santa.ethnicity
+# p test_santa
+# test_santa.age = 23
+# p test_santa
+
+
+#print Many Random Santas program
+genders = ["male", "female", "genderfluid", "transgender", "agender", "indeterminate gender"]
+ethnicities = ["human", "elf", "dwarf", "hobbit", "orc", "troll", "dragon", "goblin"]
+
 puts "How many Santas would you like to generate?"
 input = gets.to_i
-santas = random_santas(input)
-p santas 
-p santas[2].gender
-p santas[0].ethnicity
+input.times do |x|
+  random_santa = Santa.new(genders[Random.rand(genders.length)], ethnicities[Random.rand(ethnicities.length)])
+  random_santa.age = Random.rand(140)
+  puts "Santa #{x} is a #{random_santa.gender} #{random_santa.ethnicity} who is #{random_santa.age} years old."
+end  
+  
