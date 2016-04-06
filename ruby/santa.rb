@@ -1,5 +1,7 @@
 #define Santa class
 class Santa
+  attr_reader :gender, :ethnicity, :age
+  
   def initialize(gender, ethnicity)
     p "Initializing Santa instance..."
     @gender = gender
@@ -16,15 +18,6 @@ class Santa
     p "That was a good #{cookie}!"
   end
   
-  #getter methods
-  def gender
-    @gender
-  end
-  
-  def ethnicity
-    @ethnicity
-  end
-  
   #setter methods
   def celebrate_birthday
     @age += 1
@@ -37,10 +30,10 @@ class Santa
 end
 
 #random Santas generator
-def random_santas(x)
+def random_santa(x)
   santas = []
   genders = ["male", "female", "genderfluid", "transgender", "agender", "indeterminate"]
-  ethnicities = ["human", "elf", "dwarf", "hobbit", "orc", "troll", "dragon"]
+  ethnicities = ["human", "elf", "dwarf", "hobbit", "orc", "troll", "dragon", "goblin"]
    x.times do 
     santas << Santa.new(genders[Random.rand(genders.length)], ethnicities[Random.rand(ethnicities.length)])
   end  
@@ -51,15 +44,6 @@ end
 puts "How many Santas would you like to generate?"
 input = gets.to_i
 santas = random_santas(input)
-p santas
-  
-santas[0].celebrate_birthday
-
-p santas
-
-santas[2].get_mad_at("Rudolph")
-
-p santas
-
-
-
+p santas 
+p santas[2].gender
+p santas[0].ethnicity
