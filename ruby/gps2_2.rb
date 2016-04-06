@@ -11,11 +11,9 @@ def create_list(items)
   list_array = items.split(" ")
   list_hash = {}
   list_array.each do |i| 
-    #if list_hash.has_key?(i)
     if list_hash[i]
       list_hash[i] += 1
     else
-      #list_hash.store(i, 1)
       list_hash[i] = 1
     end
   end
@@ -23,28 +21,72 @@ def create_list(items)
   list_hash
 end
 
-create_list("apple banana cherry banana banana")  
-
-
 
 
 
 # Method to add an item to a list
 # input: item name and optional quantity
 # steps: add name to hash keys and add quantity to  # hash value if there is one 
-# output: the upaated hash
+# output: the updated hash
+
+def add_item(item, quantity, list)
+  list[item] = quantity
+  p list
+  list
+end 
+
+
+
 
 # Method to remove an item from the list
 # input:
 # steps:
 # output:
 
+def remove_item(item, list)
+  list.delete(item)
+  p list
+  list
+end 
+
+
+
+
 # Method to update the quantity of an item
 # input:
 # steps:
 # output:
 
+def update_quantity(item, new_quantity, list)
+  list[item] = new_quantity
+  p list
+  list
+end 
+
+
+
+
 # Method to print a list and make it look pretty
 # input:
 # steps:
 # output:
+
+def print_list(list)
+  puts "Your current grocery list"
+  puts "---------------------------"
+  list.each do |item, quantity|
+    puts "#{item}: #{quantity}"
+  end 
+end
+
+grocery_list = create_list("butter milk soda soda chips")
+add_item("Lemonade", 2, grocery_list)
+add_item("Tomatoes", 3, grocery_list)
+add_item("Onions", 1, grocery_list)
+add_item("Ice Cream", 4, grocery_list)
+
+remove_item("Lemonade", grocery_list)
+
+update_quantity("Ice Cream", 1, grocery_list)
+
+print_list(grocery_list)
