@@ -90,3 +90,34 @@ end
 
 # =======================================================================
 # Reflection Section
+# What are the differences between the two different hash syntaxes shown in the state_data file?
+
+# Hash key-value pairs paired with the "rocket" leave the datatype for the key as a string.
+# Each value was its own hash, with the keys in those being symbols.  Using both syntaxes
+# made the large "hashy-hash" much more readable. 
+
+
+# What does require_relative do? How is it different from require?
+
+# Require_relative made the data in state_data available to my_solution.  It is differnet from
+# require in that it will only search for files within the same folder or further down the folder
+# tree that the program file that requires it is in.  Require would search outside folders.
+
+
+# What are some ways to iterate through a hash?
+
+# '.each' and '.times'.  '.each' was appropriate for this exercise as it made the data in the hash
+# more easily available.
+
+
+# When refactoring virus_effects, what stood out to you about the variables, if anything?
+
+# The data for the class attribute variables were available throughout the class definition, and since we
+# were not changing any variables nor passing any arguments from the driver code, there was no need for 
+# the methods to take any arguments.
+
+
+# What concept did you most solidify in this challenge?
+
+# For me, it was how to iterate through a hash in a more sophisticated way using .each.  As well 
+# as some more ways to write more truncated conditional statements instead of if-else.
