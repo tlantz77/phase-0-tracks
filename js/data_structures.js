@@ -31,7 +31,7 @@ function Car(color, year, isManual) {
   };
 }
 
-// create a few different cars
+// create a few different cars 
 
 var newCar = new Car("blue", 2010, false);
 var oldCar = new Car("green", 1982, true);
@@ -41,3 +41,15 @@ newCar.drive();
 oldCar.drive();
 
 console.log(newCar, oldCar, fastCar);
+
+
+
+
+
+// loop
+
+for(var key in newCar) {
+  console.log(newCar[key]);
+}
+
+
