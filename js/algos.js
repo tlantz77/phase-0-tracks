@@ -38,7 +38,7 @@ longestStr(bugs);
 		- otherwise do nothing.	
 - Return value of the boolean.*/
 
-var thingA = {color: "blue", num: 3, isCool: false};
+var thingA = {color: "blue", num: 3, isCool: true};
 var thingB = {color: "red", num: 4, isNeat: false};
 var thingC = {color: "yellow", num: 3, isAwesome: true};
 
@@ -63,3 +63,34 @@ console.log(compareObj(thingA, thingC));
 
 console.log(compareObj(thingB, thingC));
 
+/*Release 2 Pseudocode
+- Declare empty word array.
+- Loop a number of times equal to value passed to function, and each time:
+	- Declare a length variable equal to a random # between 1 and 10.
+		- Create a word by looping a number of times equal to the random length, each time:
+			- Generate a random letter from a string of the alphabet.
+			- Add that letter to the word.
+	- Append that word to the array.
+*/
+
+function RandomWords(x) {
+	var word_array = [];
+	
+	function getletter() {
+		letter = "abcdefghijklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * 26));
+		return letter;
+	}
+	
+	for (var w = 0; w < x; w++) {
+		var word = "";
+		var length = Math.floor((Math.random() * 10) + 1);
+		for (var i = 0; i < length; i++) {
+			word = word + getletter();
+		}
+		word_array.push(word);
+	}
+	
+	return word_array;
+}
+
+RandomWords(4);
