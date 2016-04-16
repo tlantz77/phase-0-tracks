@@ -18,16 +18,16 @@ function longestStr(ary) {
 			longest = ary[i];
 		}
 	}
-	console.log(longest);
+	return longest;
 }			       
 
 var array = ["long phrase", "phrase", "longest phrase", "super-duper extra-long phrase", "longer phrase"];
 
-longestStr(array);
+console.log(longestStr(array));
 
 var bugs = ["ant", "beetle", "tarantulas", "bee", "wasp", "bumblebee"];
 
-longestStr(bugs);
+console.log(longestStr(bugs));
 
 /*Release 1 Pseudocode
 - Declare a boolean variable to check if a match is found and set it to false.
@@ -76,11 +76,13 @@ console.log(compareObj(thingB, thingC));
 function RandomWords(x) {
 	var word_array = [];
 	
+	//function to generate random alphabet letter.
 	function getletter() {
 		letter = "abcdefghijklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * 26));
 		return letter;
 	}
 	
+	//loop to generate words and add to the array
 	for (var w = 0; w < x; w++) {
 		var word = "";
 		var length = Math.floor((Math.random() * 10) + 1);
@@ -94,3 +96,15 @@ function RandomWords(x) {
 }
 
 RandomWords(4);
+
+//Driver Code
+
+//loop 10 times, generating array of random length between 1 and 10.
+for (var i = 0; i < 10; i++) {
+	newArray = RandomWords(Math.floor((Math.random() * 10) + 1));
+	
+	//print results to console
+	console.log("Array #" + (i+1) + ": " + newArray);
+	console.log("Longest word: " + longestStr(newArray));
+	console.log();
+}
