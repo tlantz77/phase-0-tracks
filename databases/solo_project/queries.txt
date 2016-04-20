@@ -1,0 +1,137 @@
+sqlite> SELECT * FROM games;
+id          title                      release_year  market_value  new_unopened  system_id
+----------  -------------------------  ------------  ------------  ------------  ----------
+1           The Legend of Zelda        1987          265.5         1             1
+2           Super Mario Bros.          1985          10            0             1
+3           Mike Tyson's Punch Out     1987          27.27         0             1
+4           Ghouls 'N Ghosts           1989          41            0             3
+5           Phantasy Star 2            1990          203.75        1             3
+6           Gunstar Heroes             1993          89            0             3
+7           Super Metroid              1994          49.94         0             2
+8           Earthbound                 1995          1825          1             2
+9           Chrono Trigger             1995          118.81        0             2
+10          Street Fighter 2           1992          10            0             2
+11          Final Fantasy 7            1997          29.99         0             4
+
+sqlite> UPDATE games SET market_value=365.00, new_unopened=1 WHERE title="Super Mario Bros.";
+sqlite> SELECT * FROM games;
+id          title                      release_year  market_value  new_unopened  system_id
+----------  -------------------------  ------------  ------------  ------------  ----------
+1           The Legend of Zelda        1987          265.5         1             1
+2           Super Mario Bros.          1985          365           1             1
+3           Mike Tyson's Punch Out     1987          27.27         0             1
+4           Ghouls 'N Ghosts           1989          41            0             3
+5           Phantasy Star 2            1990          203.75        1             3
+6           Gunstar Heroes             1993          89            0             3
+7           Super Metroid              1994          49.94         0             2
+8           Earthbound                 1995          1825          1             2
+9           Chrono Trigger             1995          118.81        0             2
+10          Street Fighter 2           1992          10            0             2
+11          Final Fantasy 7            1997          29.99         0             4
+
+sqlite> SELECT * FROM games JOIN systems ON games.system_id = systems.id;
+id          title                      release_year  market_value  new_unopened  system_id   id          name
+----------  -------------------------  ------------  ------------  ------------  ----------  ----------  ----------
+1           The Legend of Zelda        1987          265.5         1             1           1           NES
+2           Super Mario Bros.          1985          365           1             1           1           NES
+3           Mike Tyson's Punch Out     1987          27.27         0             1           1           NES
+4           Ghouls 'N Ghosts           1989          41            0             3           3           Sega Genes
+5           Phantasy Star 2            1990          203.75        1             3           3           Sega Genes
+6           Gunstar Heroes             1993          89            0             3           3           Sega Genes
+7           Super Metroid              1994          49.94         0             2           2           Super Nint
+8           Earthbound                 1995          1825          1             2           2           Super Nint
+9           Chrono Trigger             1995          118.81        0             2           2           Super Nint
+10          Street Fighter 2           1992          10            0             2           2           Super Nint
+11          Final Fantasy 7            1997          29.99         0             4           4           Sony Plays
+
+sqlite> SELECT games.title, games.market_value, systems.name FROM games JOIN systems ON games.system_id = systems.id;
+title                      market_val  name
+-------------------------  ----------  -------------------------
+The Legend of Zelda        265.5       NES
+Super Mario Bros.          365         NES
+Mike Tyson's Punch Out     27.27       NES
+Ghouls 'N Ghosts           41          Sega Genesis
+Phantasy Star 2            203.75      Sega Genesis
+Gunstar Heroes             89          Sega Genesis
+Super Metroid              49.94       Super Nintendo
+Earthbound                 1825        Super Nintendo
+Chrono Trigger             118.81      Super Nintendo
+Street Fighter 2           10          Super Nintendo
+Final Fantasy 7            29.99       Sony Playstation
+
+sqlite> DELETE FROM games WHERE title="Street Fighter 2";
+sqlite> SELECT * FROM games;
+id          title                      release_year               market_value  new_unopened  system_id
+----------  -------------------------  -------------------------  ------------  ------------  ----------
+1           The Legend of Zelda        1987                       265.5         1             1
+2           Super Mario Bros.          1985                       365           1             1
+3           Mike Tyson's Punch Out     1987                       27.27         0             1
+4           Ghouls 'N Ghosts           1989                       41            0             3
+5           Phantasy Star 2            1990                       203.75        1             3
+6           Gunstar Heroes             1993                       89            0             3
+7           Super Metroid              1994                       49.94         0             2
+8           Earthbound                 1995                       1825          1             2
+9           Chrono Trigger             1995                       118.81        0             2
+11          Final Fantasy 7            1997                       29.99         0             4
+
+Release 3 joins
+
+NATURAL LEFT JOIN
+sqlite> SELECT title, name FROM games NATURAL LEFT JOIN systems;
+title                      name
+-------------------------  -------------------------
+The Legend of Zelda        NES
+Super Mario Bros.          Super Nintendo
+Mike Tyson's Punch Out     Sega Genesis
+Ghouls 'N Ghosts           Sony Playstation
+Phantasy Star 2
+Gunstar Heroes
+Super Metroid
+Earthbound
+Chrono Trigger
+
+CROSS JOIN
+sqlite> SELECT title, name FROM games CROSS JOIN systems;
+title                      name
+-------------------------  -------------------------
+The Legend of Zelda        NES
+The Legend of Zelda        Super Nintendo
+The Legend of Zelda        Sega Genesis
+The Legend of Zelda        Sony Playstation
+Super Mario Bros.          NES
+Super Mario Bros.          Super Nintendo
+Super Mario Bros.          Sega Genesis
+Super Mario Bros.          Sony Playstation
+Mike Tyson's Punch Out     NES
+Mike Tyson's Punch Out     Super Nintendo
+Mike Tyson's Punch Out     Sega Genesis
+Mike Tyson's Punch Out     Sony Playstation
+Ghouls 'N Ghosts           NES
+Ghouls 'N Ghosts           Super Nintendo
+Ghouls 'N Ghosts           Sega Genesis
+Ghouls 'N Ghosts           Sony Playstation
+Phantasy Star 2            NES
+Phantasy Star 2            Super Nintendo
+Phantasy Star 2            Sega Genesis
+Phantasy Star 2            Sony Playstation
+Gunstar Heroes             NES
+Gunstar Heroes             Super Nintendo
+Gunstar Heroes             Sega Genesis
+Gunstar Heroes             Sony Playstation
+Super Metroid              NES
+Super Metroid              Super Nintendo
+Super Metroid              Sega Genesis
+Super Metroid              Sony Playstation
+Earthbound                 NES
+Earthbound                 Super Nintendo
+Earthbound                 Sega Genesis
+Earthbound                 Sony Playstation
+Chrono Trigger             NES
+Chrono Trigger             Super Nintendo
+Chrono Trigger             Sega Genesis
+Chrono Trigger             Sony Playstation
+Final Fantasy 7            NES
+Final Fantasy 7            Super Nintendo
+Final Fantasy 7            Sega Genesis
+Final Fantasy 7            Sony Playstation
+Final Fantasy 7
