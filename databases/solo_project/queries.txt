@@ -73,3 +73,65 @@ id          title                      release_year               market_value  
 8           Earthbound                 1995                       1825          1             2
 9           Chrono Trigger             1995                       118.81        0             2
 11          Final Fantasy 7            1997                       29.99         0             4
+
+Release 3 joins
+
+NATURAL LEFT JOIN
+sqlite> SELECT title, name FROM games NATURAL LEFT JOIN systems;
+title                      name
+-------------------------  -------------------------
+The Legend of Zelda        NES
+Super Mario Bros.          Super Nintendo
+Mike Tyson's Punch Out     Sega Genesis
+Ghouls 'N Ghosts           Sony Playstation
+Phantasy Star 2
+Gunstar Heroes
+Super Metroid
+Earthbound
+Chrono Trigger
+
+CROSS JOIN
+sqlite> SELECT title, name FROM games CROSS JOIN systems;
+title                      name
+-------------------------  -------------------------
+The Legend of Zelda        NES
+The Legend of Zelda        Super Nintendo
+The Legend of Zelda        Sega Genesis
+The Legend of Zelda        Sony Playstation
+Super Mario Bros.          NES
+Super Mario Bros.          Super Nintendo
+Super Mario Bros.          Sega Genesis
+Super Mario Bros.          Sony Playstation
+Mike Tyson's Punch Out     NES
+Mike Tyson's Punch Out     Super Nintendo
+Mike Tyson's Punch Out     Sega Genesis
+Mike Tyson's Punch Out     Sony Playstation
+Ghouls 'N Ghosts           NES
+Ghouls 'N Ghosts           Super Nintendo
+Ghouls 'N Ghosts           Sega Genesis
+Ghouls 'N Ghosts           Sony Playstation
+Phantasy Star 2            NES
+Phantasy Star 2            Super Nintendo
+Phantasy Star 2            Sega Genesis
+Phantasy Star 2            Sony Playstation
+Gunstar Heroes             NES
+Gunstar Heroes             Super Nintendo
+Gunstar Heroes             Sega Genesis
+Gunstar Heroes             Sony Playstation
+Super Metroid              NES
+Super Metroid              Super Nintendo
+Super Metroid              Sega Genesis
+Super Metroid              Sony Playstation
+Earthbound                 NES
+Earthbound                 Super Nintendo
+Earthbound                 Sega Genesis
+Earthbound                 Sony Playstation
+Chrono Trigger             NES
+Chrono Trigger             Super Nintendo
+Chrono Trigger             Sega Genesis
+Chrono Trigger             Sony Playstation
+Final Fantasy 7            NES
+Final Fantasy 7            Super Nintendo
+Final Fantasy 7            Sega Genesis
+Final Fantasy 7            Sony Playstation
+Final Fantasy 7
