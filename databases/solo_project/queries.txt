@@ -1,0 +1,75 @@
+sqlite> SELECT * FROM games;
+id          title                      release_year  market_value  new_unopened  system_id
+----------  -------------------------  ------------  ------------  ------------  ----------
+1           The Legend of Zelda        1987          265.5         1             1
+2           Super Mario Bros.          1985          10            0             1
+3           Mike Tyson's Punch Out     1987          27.27         0             1
+4           Ghouls 'N Ghosts           1989          41            0             3
+5           Phantasy Star 2            1990          203.75        1             3
+6           Gunstar Heroes             1993          89            0             3
+7           Super Metroid              1994          49.94         0             2
+8           Earthbound                 1995          1825          1             2
+9           Chrono Trigger             1995          118.81        0             2
+10          Street Fighter 2           1992          10            0             2
+11          Final Fantasy 7            1997          29.99         0             4
+
+sqlite> UPDATE games SET market_value=365.00, new_unopened=1 WHERE title="Super Mario Bros.";
+sqlite> SELECT * FROM games;
+id          title                      release_year  market_value  new_unopened  system_id
+----------  -------------------------  ------------  ------------  ------------  ----------
+1           The Legend of Zelda        1987          265.5         1             1
+2           Super Mario Bros.          1985          365           1             1
+3           Mike Tyson's Punch Out     1987          27.27         0             1
+4           Ghouls 'N Ghosts           1989          41            0             3
+5           Phantasy Star 2            1990          203.75        1             3
+6           Gunstar Heroes             1993          89            0             3
+7           Super Metroid              1994          49.94         0             2
+8           Earthbound                 1995          1825          1             2
+9           Chrono Trigger             1995          118.81        0             2
+10          Street Fighter 2           1992          10            0             2
+11          Final Fantasy 7            1997          29.99         0             4
+
+sqlite> SELECT * FROM games JOIN systems ON games.system_id = systems.id;
+id          title                      release_year  market_value  new_unopened  system_id   id          name
+----------  -------------------------  ------------  ------------  ------------  ----------  ----------  ----------
+1           The Legend of Zelda        1987          265.5         1             1           1           NES
+2           Super Mario Bros.          1985          365           1             1           1           NES
+3           Mike Tyson's Punch Out     1987          27.27         0             1           1           NES
+4           Ghouls 'N Ghosts           1989          41            0             3           3           Sega Genes
+5           Phantasy Star 2            1990          203.75        1             3           3           Sega Genes
+6           Gunstar Heroes             1993          89            0             3           3           Sega Genes
+7           Super Metroid              1994          49.94         0             2           2           Super Nint
+8           Earthbound                 1995          1825          1             2           2           Super Nint
+9           Chrono Trigger             1995          118.81        0             2           2           Super Nint
+10          Street Fighter 2           1992          10            0             2           2           Super Nint
+11          Final Fantasy 7            1997          29.99         0             4           4           Sony Plays
+
+sqlite> SELECT games.title, games.market_value, systems.name FROM games JOIN systems ON games.system_id = systems.id;
+title                      market_val  name
+-------------------------  ----------  -------------------------
+The Legend of Zelda        265.5       NES
+Super Mario Bros.          365         NES
+Mike Tyson's Punch Out     27.27       NES
+Ghouls 'N Ghosts           41          Sega Genesis
+Phantasy Star 2            203.75      Sega Genesis
+Gunstar Heroes             89          Sega Genesis
+Super Metroid              49.94       Super Nintendo
+Earthbound                 1825        Super Nintendo
+Chrono Trigger             118.81      Super Nintendo
+Street Fighter 2           10          Super Nintendo
+Final Fantasy 7            29.99       Sony Playstation
+
+sqlite> DELETE FROM games WHERE title="Street Fighter 2";
+sqlite> SELECT * FROM games;
+id          title                      release_year               market_value  new_unopened  system_id
+----------  -------------------------  -------------------------  ------------  ------------  ----------
+1           The Legend of Zelda        1987                       265.5         1             1
+2           Super Mario Bros.          1985                       365           1             1
+3           Mike Tyson's Punch Out     1987                       27.27         0             1
+4           Ghouls 'N Ghosts           1989                       41            0             3
+5           Phantasy Star 2            1990                       203.75        1             3
+6           Gunstar Heroes             1993                       89            0             3
+7           Super Metroid              1994                       49.94         0             2
+8           Earthbound                 1995                       1825          1             2
+9           Chrono Trigger             1995                       118.81        0             2
+11          Final Fantasy 7            1997                       29.99         0             4
