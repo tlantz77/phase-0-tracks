@@ -29,3 +29,57 @@ create_systems_table = <<-SQL
 #create tables if they don't exist
 db.execute(create_games_table)
 db.execute(create_systems_table)			
+
+#methods
+
+
+
+
+
+
+
+#driver code
+in_use = true
+
+puts "Welcome to your Video Game Collection Database!"
+puts "-" * 50
+
+while in_use
+	puts "1. ADD NEW ENTRY  2. EDIT ENTRY  3. DELETE ENTRY  4. VIEW COLLECTION  5. EXIT"
+	print "Please enter [1 - 5]: "
+	choice = gets.to_i
+
+	case choice
+	when 1
+		print "Enter the game's title: "
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	when 2
+		p choice	
+	when 3
+		p choice	
+	when 4
+		p choice	
+	when 5
+		in_use = false
+	else
+		puts "Invalid entry!"
+	end	
+end
+puts "-" * 50
+puts "Goodbye and Happy Collecting!"	
