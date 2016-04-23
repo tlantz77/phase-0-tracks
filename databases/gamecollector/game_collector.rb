@@ -13,7 +13,7 @@ create_games_table = <<-SQL
 		title VARCHAR(255),
 		system_id INT,
 		release_year INT,
-		new_unopened BOOLEAN,
+		unopened BOOLEAN,
 		market_value DECIMAL(10,2),
 		FOREIGN KEY (system_id) REFERENCES systems(id)
 		)
@@ -22,7 +22,7 @@ create_games_table = <<-SQL
 create_systems_table = <<-SQL
 	CREATE TABLE IF NOT EXISTS systems(
 		id INTEGER PRIMARY KEY,
-		name VARCHAR(255)
+		name VARCHAR(255) UNIQUE
 		)
 	SQL
 	
@@ -32,8 +32,9 @@ db.execute(create_systems_table)
 
 #methods
 
+def add_system(system)
 
-
+end
 
 
 
@@ -52,7 +53,23 @@ while in_use
 	case choice
 	when 1
 		print "Enter the game's title: "
+		title = gets.chomp
 		
+		print "Enter the game's system: "
+		system = gets.chomp.upcase
+		
+		print "Enter its year of release: "
+		release_year = gets.to_i
+		
+		print "Is the game complete & unopened? (y/n): "
+		i = gets.chr.downcase
+		unopened = 0 if i == "n"
+		unopened = 1 if i == "y"
+
+		print "Enter the game's estimated market value: "
+		market_value = gets.to_f
+
+
 
 
 
