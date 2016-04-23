@@ -32,12 +32,17 @@ db.execute(create_systems_table)
 
 #methods
 
+#add a system name to systems table, ignore duplicate entries
 def add_system(system)
-
+	db.execute("INSERT OR IGNORE INTO systems (name) VALUES (?)", [system])
 end
 
-
-
+#add game info to games table
+#checks the systems table for the system name entered by user and assigns it's primary key as the system_id in games table
+def add_game(title, system, release_year, unopened, market_value)
+	sys_id = db.execute("SELECT id FROM systems WHERE name=#{system}")
+	db.execute("INSERT INTO games (title, system_id, release_year, unopened, market_value) VALUES (?, ?, ?, ?, ?)", [title, sys_id, release_year, unopened, market_value])	
+end
 
 #driver code
 in_use = true
@@ -69,22 +74,8 @@ while in_use
 		print "Enter the game's estimated market value: "
 		market_value = gets.to_f
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		add_system(system)
+		add_game(title, system, release_year, unopened, market_value)
 
 	when 2
 		p choice	
