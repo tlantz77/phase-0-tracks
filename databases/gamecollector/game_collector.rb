@@ -45,17 +45,34 @@ end
 
 
 
-def display
-	db.execute("SELECT * FROM games")
-end
+
+#delete a game entry
+def delete_entry(db, id)
+	db.execute("DELETE FROM games WHERE id=?", [id])
+end	
+
+#display games table info method
+#will insert system name from systems table in place of primary key
+def display(db)
+	puts "ID   Title                      Year  New?   MarketValue   System"
+	puts "-" * 75
+	games = db.execute("SELECT * FROM games")
+	games.each do |game|
+		sys = db.execute("SELECT name FROM systems WHERE id=?", game[2])
+		unopened = "N" if game[4] == 0
+		unopened = "Y" if game[4] == 1
+		puts "[#{game[0]}]  #{game[1].ljust(25)}  #{game[3]}  #{unopened.ljust(5)}  #{game[5].to_s.ljust(12)}  #{sys}"
+	end	
+end	
 
 #driver code
 in_use = true
 
 puts "Welcome to your Video Game Collection Database!"
-puts "-" * 50
+puts "-" * 75
 
 while in_use
+	puts "-" * 75
 	puts "1. ADD NEW ENTRY  2. EDIT ENTRY  3. DELETE ENTRY  4. VIEW COLLECTION  5. EXIT"
 	print "Please enter [1 - 5]: "
 	choice = gets.to_i
@@ -84,15 +101,22 @@ while in_use
 
 	when 2
 		p choice	
+	
+
 	when 3
-		p choice	
+		print "Enter the numeric ID of the game you wish to delete: "
+		id = gets.to_i
+		delete_entry(db, id)
+
 	when 4
-		p choice	
+		display(db)
+	
 	when 5
 		in_use = false
+	
 	else
 		puts "Invalid entry!"
 	end	
 end
-puts "-" * 50
+puts "-" * 75
 puts "Goodbye and Happy Collecting!"	
