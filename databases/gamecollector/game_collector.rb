@@ -4,7 +4,7 @@ require 'sqlite3'
 
 #create database
 db = SQLite3::Database.new("games.db")
-db.results_as_hash = true
+#db.results_as_hash = true
 
 #games & systems tables commands
 create_games_table = <<-SQL
@@ -13,7 +13,7 @@ create_games_table = <<-SQL
 		title VARCHAR(255),
 		system_id INT,
 		release_year INT,
-		unopened BOOLEAN,
+		unopened INT,
 		market_value DECIMAL(10,2),
 		FOREIGN KEY (system_id) REFERENCES systems(id)
 		)
@@ -33,15 +33,21 @@ db.execute(create_systems_table)
 #methods
 
 #add a system name to systems table, ignore duplicate entries
-def add_system(system)
+def add_system(db, system)
 	db.execute("INSERT OR IGNORE INTO systems (name) VALUES (?)", [system])
 end
 
 #add game info to games table
 #checks the systems table for the system name entered by user and assigns it's primary key as the system_id in games table
-def add_game(title, system, release_year, unopened, market_value)
-	sys_id = db.execute("SELECT id FROM systems WHERE name=#{system}")
+def add_game(db, title, system, release_year, unopened, market_value)
+	sys_id = db.execute("SELECT id FROM systems WHERE name=?", [system])
 	db.execute("INSERT INTO games (title, system_id, release_year, unopened, market_value) VALUES (?, ?, ?, ?, ?)", [title, sys_id, release_year, unopened, market_value])	
+end
+
+
+
+def display
+	db.execute("SELECT * FROM games")
 end
 
 #driver code
@@ -68,14 +74,14 @@ while in_use
 		
 		print "Is the game complete & unopened? (y/n): "
 		i = gets.chr.downcase
-		unopened = 0 if i == "n"
 		unopened = 1 if i == "y"
+		unopened = 0 if i == "n"
 
 		print "Enter the game's estimated market value: "
 		market_value = gets.to_f
 
-		add_system(system)
-		add_game(title, system, release_year, unopened, market_value)
+		add_system(db, system)
+		add_game(db, title, system, release_year, unopened, market_value)
 
 	when 2
 		p choice	
