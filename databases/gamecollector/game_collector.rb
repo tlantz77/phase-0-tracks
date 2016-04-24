@@ -4,7 +4,6 @@ require 'sqlite3'
 
 #create database
 db = SQLite3::Database.new("games.db")
-#db.results_as_hash = true
 
 #games & systems tables commands
 create_games_table = <<-SQL
@@ -13,7 +12,7 @@ create_games_table = <<-SQL
 		title VARCHAR(255),
 		system_id INT,
 		release_year INT,
-		unopened INT,
+		unopened BOOLEAN,
 		market_value DECIMAL(10,2),
 		FOREIGN KEY (system_id) REFERENCES systems(id)
 		)
