@@ -12,7 +12,7 @@ create_games_table = <<-SQL
 		title VARCHAR(255),
 		system_id INT,
 		release_year INT,
-		unopened INT,
+		unopened BOOLEAN,
 		market_value DECIMAL(10,2),
 		FOREIGN KEY (system_id) REFERENCES systems(id)
 		)
@@ -25,6 +25,14 @@ create_systems_table = <<-SQL
 		)
 	SQL
 	
+drop_games_table = <<-SQL
+	DROP TABLE games
+	SQL
+
+drop_systems_table = <<-SQL
+	DROP TABLE systems
+	SQL
+
 #create tables if they don't exist
 db.execute(create_games_table)
 db.execute(create_systems_table)			
@@ -56,10 +64,9 @@ def edit_entry(db, id, edit_choice)
 		db.execute("UPDATE games SET release_year=? WHERE id=?", [new_year, id])
 	when 3
 		status = db.execute("SELECT unopened FROM games WHERE id=?", [id])
-		stat = status[0]
-		if stat[0] == 1
+		if status[0][0] == 1
 			db.execute("UPDATE games SET unopened=0 WHERE id=?", [id])
-		elsif stat[0] == 0
+		elsif status[0][0] == 0
 			db.execute("UPDATE games SET unopened=1 WHERE id=?", [id])
 		end	
 		puts ("Status changed.")
@@ -92,7 +99,7 @@ def display(db)
 		sys = db.execute("SELECT name FROM systems WHERE id=?", game[2])
 		unopened = "N" if game[4] == 0
 		unopened = "Y" if game[4] == 1
-		puts "[#{game[0]}]  #{game[1].ljust(25)}  #{game[3]}  #{unopened.ljust(5)}  #{game[5].to_s.ljust(12)}  #{sys}"
+		puts "[#{game[0]}]  #{game[1].ljust(25)}  #{game[3]}  #{unopened.ljust(5)}  #{game[5].to_s.ljust(12)}  #{sys[0][0]}"
 	end	
 end	
 
@@ -105,18 +112,17 @@ def display_one(db, id)
 	sys = db.execute("SELECT name FROM systems WHERE id=?", game[2])
 	unopened = "N" if game[4] == 0
 	unopened = "Y" if game[4] == 1
-	puts "[#{game[0]}]  #{game[1].ljust(25)}  #{game[3]}  #{unopened.ljust(5)}  #{game[5].to_s.ljust(12)}  #{sys}"
+	puts "[#{game[0]}]  #{game[1].ljust(25)}  #{game[3]}  #{unopened.ljust(5)}  #{game[5].to_s.ljust(12)}  #{sys[0][0]}"
 end
 
 #driver code
 in_use = true
 
 puts "Welcome to your Video Game Collection Database!"
-puts "-" * 75
 
 while in_use
 	puts "-" * 75
-	puts "1. ADD NEW ENTRY  2. EDIT ENTRY  3. DELETE ENTRY  4. VIEW COLLECTION  5. EXIT"
+	puts "1. ADD NEW ENTRY  2. EDIT ENTRY  3. DELETE ENTRY  4. VIEW COLLECTION  5. CLEAR DATABASE  6. EXIT"
 	print "Please enter [1 - 5]: "
 	choice = gets.to_i
 
@@ -167,6 +173,19 @@ while in_use
 		display(db)
 	
 	when 5
+		puts "WARNING: THIS WILL DELETE ALL OF YOUR DATA AND EXIT THE PROGRAM!"
+		print "Are you sure you want to proceed?  If so, type 'YES' in all caps: "
+		drop = gets.chomp
+		if drop == "YES"
+			db.execute(drop_games_table)
+			db.execute(drop_systems_table)
+			puts "Database deleted!"
+			in_use = false
+		else 
+			puts "Deletion aborted."
+		end	
+
+	when 6
 		in_use = false
 	
 	else
