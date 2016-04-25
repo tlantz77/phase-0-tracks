@@ -12,7 +12,7 @@ create_games_table = <<-SQL
 		title VARCHAR(255),
 		system_id INT,
 		release_year INT,
-		unopened BOOLEAN,
+		unopened INT,
 		market_value DECIMAL(10,2),
 		FOREIGN KEY (system_id) REFERENCES systems(id)
 		)
@@ -43,12 +43,43 @@ def add_game(db, title, system, release_year, unopened, market_value)
 	db.execute("INSERT INTO games (title, system_id, release_year, unopened, market_value) VALUES (?, ?, ?, ?, ?)", [title, sys_id, release_year, unopened, market_value])	
 end
 
-
-
+#edit a game entry
+def edit_entry(db, id, edit_choice)
+	case edit_choice
+	when 1
+		print "Enter the new title: "
+		new_title = gets.chomp
+		db.execute("UPDATE games SET title=? WHERE id=?", [new_title, id])
+	when 2
+		print "Enter the new release year: "
+		new_year = gets.to_i
+		db.execute("UPDATE games SET release_year=? WHERE id=?", [new_year, id])
+	when 3
+		status = db.execute("SELECT unopened FROM games WHERE id=?", [id])
+		stat = status[0]
+		if stat[0] == 1
+			db.execute("UPDATE games SET unopened=0 WHERE id=?", [id])
+		elsif stat[0] == 0
+			db.execute("UPDATE games SET unopened=1 WHERE id=?", [id])
+		end	
+		puts ("Status changed.")
+	when 4
+		print "Enter the new market value: "
+		new_value = gets.to_f
+		db.execute("UPDATE games SET market_value=? WHERE id=?", [market_value, id])				
+	when 5
+		print "Enter the new system: "
+		new_system = gets.chomp.upcase
+		db.execute("INSERT OR IGNORE INTO systems (name) VALUES (?)", new_system)
+		sys_id = db.execute("SELECT id FROM systems WHERE name=?", new_system)
+		db.execute("UPDATE games SET system_id=? WHERE id=?", [sys_id, id])
+	end	
+end
 
 #delete a game entry
 def delete_entry(db, id)
-	db.execute("DELETE FROM games WHERE id=?", [id])
+	db.execute("DELETE FROM games WHERE id=?", id)
+	puts "Entry deleted."
 end	
 
 #display games table info method
@@ -64,6 +95,18 @@ def display(db)
 		puts "[#{game[0]}]  #{game[1].ljust(25)}  #{game[3]}  #{unopened.ljust(5)}  #{game[5].to_s.ljust(12)}  #{sys}"
 	end	
 end	
+
+#display one selected entry from games table
+def display_one(db, id)
+	puts "ID   Title                      Year  New?   MarketValue   System"
+	puts "-" * 75
+	game_entry = db.execute("SELECT * FROM games WHERE id=?", id)
+	game = game_entry[0]
+	sys = db.execute("SELECT name FROM systems WHERE id=?", game[2])
+	unopened = "N" if game[4] == 0
+	unopened = "Y" if game[4] == 1
+	puts "[#{game[0]}]  #{game[1].ljust(25)}  #{game[3]}  #{unopened.ljust(5)}  #{game[5].to_s.ljust(12)}  #{sys}"
+end
 
 #driver code
 in_use = true
@@ -100,11 +143,23 @@ while in_use
 		add_game(db, title, system, release_year, unopened, market_value)
 
 	when 2
-		p choice	
-	
+		print "Enter the ID of the game entry you wish to edit: "
+		id = gets.to_i
+		display_one(db, id)
+		puts "-" * 75
+		puts "1. EDIT TITLE  2. EDIT YEAR  3. CHANGE NEW STATUS  4. EDIT MARKET VALUE  5. EDIT SYSTEM"
+		print "Please enter [1 - 5]: " 
+		edit_choice = gets.to_i
+		
+		case edit_choice 
+		when 1, 2, 3, 4, 5
+			edit_entry(db, id, edit_choice)
+		else
+			puts "Invalid entry."	
+	 	end
 
 	when 3
-		print "Enter the numeric ID of the game you wish to delete: "
+		print "Enter the ID of the game you wish to delete: "
 		id = gets.to_i
 		delete_entry(db, id)
 
