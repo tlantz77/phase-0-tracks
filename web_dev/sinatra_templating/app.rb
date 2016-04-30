@@ -25,7 +25,13 @@ post '/students' do
   redirect '/'
 end
 
-# delete a student via form
+# accessing delete a student form page
 get '/students/delete' do
 	erb :delete_student
+end	
+
+# delete a student via a form
+post '/students_delete' do
+	db.execute("DELETE FROM students WHERE name=?", [params['name']])
+	redirect '/'
 end	
