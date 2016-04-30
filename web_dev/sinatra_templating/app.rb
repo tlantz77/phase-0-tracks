@@ -25,4 +25,7 @@ post '/students' do
   redirect '/'
 end
 
-# add static resources
+# delete a student via form
+get '/students/delete' do
+	erb :delete_student
+end	
