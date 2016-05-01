@@ -1,0 +1,15 @@
+div {
+	height: 285px;
+	width: 250px;
+	background-color: gray;
+}
+
+img {
+	padding: 20px;
+}
+
+#name {
+	font-size: 48px;
+	padding: 40px;
+	margin: auto;
+}
