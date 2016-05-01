@@ -1,4 +1,4 @@
-div {
+#hamster1, #hamster2, #panel {
 	height: 285px;
 	width: 250px;
 	background-color: gray;
@@ -14,4 +14,11 @@ img {
 	padding: 40px;
 	margin: auto;
 	z-index: 10;
+}
+
+#panel {
+	text-align: center;
+	font-size: 48px;
+	display: none;
+	padding-top: 50px;
 }
